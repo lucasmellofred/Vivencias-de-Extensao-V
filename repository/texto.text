@@ -1,0 +1,18 @@
+
+
+@Query("SELECT f FROM Formulario f WHERE CONCAT(f.dataAbertura,
+: endDate")
+
+f.horaAbertura) >= :startDate AND CONCAT(f.dataAbertura,
+List<Formulario> find FormulariosBetweenDates (@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+
+@SuppressWarnings("null")
+
+@Cacheable("formularios")
+
+@EntityGraph(attributePaths
+"contratoEdital")
+
+List<Formulario> findAll();
+f.horaAbertura) <=
