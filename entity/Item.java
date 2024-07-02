@@ -1,4 +1,4 @@
-package br.edu.univille.projeto_fabrica_software.entity;
+package br.edu.univille.projeto_vivencias_extensao_V.entity;
 //alterar o pacote conforme a necessidade
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
