@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.Date;
+import java.time.LocalDate;
 
 @Entity
 public class AcaoSocial {
@@ -34,7 +35,7 @@ public class AcaoSocial {
         return nome;
     }
     public void setNome(String nome) {
-        this.codigo = nome;
+        this.nome = nome;
     }
     public String getLocal() {
         return local;
@@ -51,8 +52,8 @@ public class AcaoSocial {
     public void getDataFinal() {
         return data_final;
     }
-    public void setDataInicial(String data_inicial) {
-        this.data_inicial = data_inicial;
+    public void setDataFinal(String data_final) {
+        this.data_final = data_final;
     }
    
 
