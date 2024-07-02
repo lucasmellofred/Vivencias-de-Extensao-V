@@ -1,4 +1,4 @@
-package br.edu.univille.projeto_fabrica_software.entity;
+package br.edu.univille.projeto_vivencias_extensao_V.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
