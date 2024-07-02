@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
+    <title>Nova ação social</title>
+</head>
+<body>
+    <form th:action="@{/salvar-acao-social}" method="post">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome">
+        </div>
+        <div class="form-group">
+            <label for="local">Local</label>
+            <input type="text" class="form-control" id="local" name="local">
+        </div>
+        <div class="form-group">
+            <label for="data_inicial">Data de Início</label>
+            <input type="date" class="form-control" id="data_inicial" name="data_inicial">
+        </div>
+        <div class="form-group">
+            <label for="data_final">Data de Término</label>
+            <input type="date" class="form-control" id="data_final" name="data_final">
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</body>
+</html>

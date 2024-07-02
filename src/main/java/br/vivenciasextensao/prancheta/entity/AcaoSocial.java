@@ -1,12 +1,15 @@
 package br.vivenciasextensao.prancheta.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class AcaoSocial {
@@ -14,17 +17,13 @@ public class AcaoSocial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Campo codigo não pode ser em branco")
     private String nome;
-
-    @NotBlank(message = "Campo estado reparo não pode ser em branco")
     private String local;
-
-    @NotBlank(message = "Campo data final não pode ser em branco")
     private Date data_final;
-
-    @NotBlank(message = "Campo data inicial não pode ser em branco")
     private Date data_inicial;
+
+    @OneToMany(mappedBy = "acaoSocial", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> itens = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -49,21 +48,29 @@ public class AcaoSocial {
     public void setLocal(String local) {
         this.local = local;
     }
-    
+
     public Date getData_final() {
         return data_final;
     }
-    
+
     public void setData_final(Date data_final) {
         this.data_final = data_final;
     }
-    
+
     public Date getData_inicial() {
         return data_inicial;
     }
-    
+
     public void setData_inicial(Date data_inicial) {
         this.data_inicial = data_inicial;
     }
-    
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
 }

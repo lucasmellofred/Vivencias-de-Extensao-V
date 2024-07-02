@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
+    <title th:text="'Editar Ação Social ' + ${acaoSocial.id}"></title>
+</head>
+<body>
+    <form th:action="@{/salvar-acao-social/{id}(id=${acaoSocial.id})}" th:object="${acaoSocial}" method="post">
+        <input type="hidden" name="acaoSocialId" th:value="${acaoSocial.id}"/>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" th:value="${acaoSocial.nome}">
+        </div>
+        <div class="form-group">
+            <label for="local">Local</label>
+            <input type="text" class="form-control" id="local" name="local" th:value="${acaoSocial.local}">
+        </div>
+        <div class="form-group">
+            <label for="data_inicial">Data de Início</label>
+            <input type="date" class="form-control" id="data_inicial" name="data_inicial" th:value="${#dates.format(acaoSocial.data_inicial, 'yyyy-MM-dd')}">
+        </div>
+        <div class="form-group">
+            <label for="data_final">Data de Término</label>
+            <input type="date" class="form-control" id="data_final" name="data_final" th:value="${#dates.format(acaoSocial.data_final, 'yyyy-MM-dd')}">
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+    
+    <table class="table table-bordered border-primary me-2 pt-3" id="minha-tabela">
+        <thead class="z-0 sticky-top">
+            <tr>
+                <th class="colunaItemacao" data-col="Itemacao">Ação</th>
+                <th class="colunaItemid" data-col="Itemid">ID</th>
+                <th class="colunaItemnome" data-col="Itemnome">Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${acaoSocial.itens}">
+                <td class="colunaItem" data-col="Itemacao">
+
+                </td>
+                <td class="colunaItem" data-col="Itemid" th:text="${item.id}"></td>
+                <td class="colunaItemNome" data-col="Itemnome" th:text="${item.nome}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,21 +1,24 @@
 package br.vivenciasextensao.prancheta.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(nullable = false, length = 1000)
-    @NotBlank(message = "Campo nome não pode ser em branco")
+    
     private String nome;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "acaoSocial_id")
+	private AcaoSocial acaoSocial;
         
     public long getId() {
         return id;
@@ -32,5 +35,13 @@ public class Item {
     public void setNome(String nome) {
         this.nome = nome;
     }
-  
+
+    public AcaoSocial getAcaoSocial() {
+        return acaoSocial;
+    }
+
+    public void setAcaoSocial(AcaoSocial acaoSocial) {
+        this.acaoSocial = acaoSocial;
+    }
+    
 }
