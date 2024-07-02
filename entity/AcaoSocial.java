@@ -1,4 +1,4 @@
-package br.edu.univille.projeto_fabrica_software.entity;
+package br.edu.univille.projeto_vivencias_extencao_V.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
