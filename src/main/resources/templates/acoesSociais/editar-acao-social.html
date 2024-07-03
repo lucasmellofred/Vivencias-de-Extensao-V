@@ -85,9 +85,13 @@
     <table class="table table-bordered border-primary me-2 pt-3" id="minha-tabela">
         <thead class="z-0 sticky-top">
             <tr>
-                <th class="colunaItemacao" data-col="Itemacao">Ação</th>
-                <th class="colunaItemid" data-col="Itemid">ID</th>
-                <th class="colunaItemnome" data-col="Itemnome">Nome</th>
+                <th class="colunaItemAcao" data-col="Itemacao">Ação</th>
+                <th class="colunaItemId" data-col="Itemid">ID</th>
+                <th class="colunaItemNome" data-col="Itemnome">Nome</th>
+                <th class="colunaItemDescricao" data-col="Itemdescricao">Descrição</th>
+                <th class="colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
+                <th class="colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
+                <th class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
             </tr>
         </thead>
         <tbody>
@@ -97,6 +101,10 @@
                 </td>
                 <td class="colunaItem" data-col="Itemid" th:text="${item.id}"></td>
                 <td class="colunaItemNome" data-col="Itemnome" th:text="${item.nome}"></td>
+                <td class="colunaItemDescricao" data-col="Itemdescricao" th:text="${item.descricao}"></td>
+                <td class="colunaItemCategoria" data-col="ItemCategoria" th:text="${item.categoria}"></td>
+                <td class="colunaItemInfoAdicional" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
+                <td class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
             </tr>
         </tbody>
     </table>

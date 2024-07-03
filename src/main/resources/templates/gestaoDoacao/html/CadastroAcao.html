@@ -70,7 +70,8 @@
     </div>
 
     <div id="cadastro" class="tab-content" style="display: block;">
-        <form th:action="@{/doacao/submit}" th:object="${doacao}" method="post">
+        <form th:action="@{/acaoSocial/{acaoSocialId}/itens/save(acaoSocialId=${acaoSocial.id})}" th:object="${doacao}" method="post">
+
             <label for="nome">Nome do Produto:</label>
             <input class="caixa__texto" type="text" id="nome" name="nome" required>
 
