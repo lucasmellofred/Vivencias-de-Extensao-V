@@ -24,10 +24,12 @@ public class Administrador {
 	private LocalDateTime ultimaDataEnvioEmailRedefinicaoSenha;
 	private LocalDateTime dataLogin;
 	private Boolean lembrarDeMim;
+	private String tokenAtivacaoConta;
 	private String tokenSeguranca;
 	private String tokenProtecao;
 	private String tokenSeguroVolatil;
 	private String tokenServidorVolatil;
+	private LocalDateTime dataExpiracaoTokenAtivacao;
 
 	public Long getId() {
 		return id;
@@ -171,6 +173,22 @@ public class Administrador {
 
 	public void setTokenServidorVolatil(String tokenServidorVolatil) {
 		this.tokenServidorVolatil = tokenServidorVolatil;
+	}
+
+	public void setTokenAtivacaoConta(String tokenAtivacaoConta) {
+		this.tokenAtivacaoConta = tokenAtivacaoConta;
+	}
+
+	public String getTokenAtivacaoConta() {
+		return tokenAtivacaoConta;
+	}
+
+	public LocalDateTime getDataExpiracaoTokenAtivacao() {
+		return dataExpiracaoTokenAtivacao;
+	}
+
+	public void setDataExpiracaoTokenAtivacao(LocalDateTime dataExpiracaoTokenAtivacao) {
+		this.dataExpiracaoTokenAtivacao = dataExpiracaoTokenAtivacao;
 	}
 
 }

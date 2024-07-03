@@ -15,11 +15,15 @@ public class Item {
     private long id;
     
     private String nome;
+    private String codigoIdentificacao;
+    private String categoria;
+    private String descricao;
+    private String infoAdicional;
 
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "acaoSocial_id")
 	private AcaoSocial acaoSocial;
-        
+
     public long getId() {
         return id;
     }
@@ -34,6 +38,38 @@ public class Item {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCodigoIdentificacao() {
+        return codigoIdentificacao;
+    }
+
+    public void setCodigoIdentificacao(String codigoIdentificacao) {
+        this.codigoIdentificacao = codigoIdentificacao;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getInfoAdicional() {
+        return infoAdicional;
+    }
+
+    public void setInfoAdicional(String infoAdicional) {
+        this.infoAdicional = infoAdicional;
     }
 
     public AcaoSocial getAcaoSocial() {

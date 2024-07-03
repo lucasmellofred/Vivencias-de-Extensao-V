@@ -1,4 +1,4 @@
-/*package br.vivenciasextensao.prancheta.service.Autenticacao;
+package br.vivenciasextensao.prancheta.service.Autenticacao;
 
 import java.util.Optional;
 
@@ -85,4 +85,4 @@ public class LoginInterceptor implements HandlerInterceptor {
       return false;
   }
 
-}*/
+}

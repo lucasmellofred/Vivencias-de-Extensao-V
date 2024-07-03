@@ -1,4 +1,4 @@
-/*package br.vivenciasextensao.prancheta.service.Autenticacao;
+package br.vivenciasextensao.prancheta.service.Autenticacao;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -37,7 +37,7 @@ public class LoginInterceptorAppConfig implements WebMvcConfigurer {
 		"/img/bg-slider.svg",
 		"/static/i18n/pt-BR.json",
 		"acoesSociais/todas-acoes-sociais",
-		"/todas-acoes-sociais");
+		"/todas-acoes-sociais",
+		"/");
 	}
 }
-*/

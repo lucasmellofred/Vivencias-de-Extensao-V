@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +44,12 @@ public class AcaoSocialController {
     public String cadastrarAcaoSocial(Model model) {
         model.addAttribute("doacao", new AcaoSocial());
         return "gestaoDoacao/html/cadastroAcao";
+    }
+
+    @PostMapping("/doacao/submit")
+    public String doacaoSubmit(@ModelAttribute AcaoSocial acaoSocial) {
+        acaoSocialRepository.save(acaoSocial);
+        return "redirect:/cadastrar-acao-social";
     }
 
     @PostMapping("/salvar-acao-social")
@@ -92,4 +99,5 @@ public class AcaoSocialController {
         acaoSocialRepository.delete(acaoSocial);
         return "redirect:/todas-acoes-sociais";
     }
+
 }

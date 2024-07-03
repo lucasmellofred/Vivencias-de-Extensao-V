@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
+  <link rel="stylesheet" th:href="@{/style-padrao.css}" type="text/css">
+  <title>Gerenciar minha conta</title>
+</head>
+<body class="corpo">
+  <header style="display: block;">
+    <div class="d-flex flex-column flex-shrink-0 p-4 text-white bg-dark sticky-top">
+        <nav class="navbar navbar-dark bg-dark fixed-top" >
+            <style>
+               
+            </style>
+            <div class="container-fluid">
+
+                <ul class="nav">
+                    <a class="navbar-brand" th:href="@{/}">
+                        Página inicial
+                    </a>
+
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="nav-link" th:href="@{/nova-acao-social}" role="button" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill mb-1" viewBox="0 0 16 16">
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                              </svg>
+                            <span class="textoSpanGuiaDoSistema">Nova ação social</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="nav-link" th:href="@{/listar-todas-acoes-sociais}" role="button" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check mb-1" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                            </svg>
+                            <span class="textoSpanGuiaDoSistema">Todas ações sociais</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown" style="list-style: none;">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle mb-1" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                        </svg>
+                        <span class="textoSpanMinhaConta">Minha Conta</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" th:href="@{/minhaConta/logado}">Gerenciar minha conta</a></li>
+                            <li><a class="dropdown-item" th:href="@{/sair}">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+    <div class="d-flex flex-column flex-shrink-0" style="float: left; width: -webkit-fill-available;">
+        <div class="p-3 rounded-2">
+            <h1>Gerenciar minha conta</h1>
+                
+            <div class="campos d-flex justify-content-center p-3 rounded-2">
+                <div th:if="${administrador != null}" class="justify-content-center p-3 rounded-2">
+                  <div class="ms-auto me-auto" style="width: 500px;">
+                    <h2 style="text-align-last: center;">Dados do Administrador</h2>
+                    <hr>
+
+                    <p>Nome: <span th:text="${administrador.nome}"></span></p>
+                    <p>Email: <span th:text="${administrador.email}"></span></p>
+                    <p>Telefone: <span th:text="${administrador.telefone}"></span></p>
+
+                    <div class="d-flex justify-content-center align-items-center mt-4">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Atualizar dados
+                        </button>
+                        
+                    </div>
+
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Atualizar dados pessoais</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/administradores/atualizar/{id}(id=${administrador.id})}" th:object="${administrador}" method="post">
+                                        <p style="text-align-last: left;">Nome: <input class="form-control" type="text" th:value="${administrador.nome}" name="nome"></p>
+                                        <p style="text-align-last: left;">E-mail: <input class="form-control" type="email" th:value="${administrador.email}" name="email"></p>
+                                        <p style="text-align-last: left;">Telefone: <input class="form-control" type="text" id="telefoneInput" th:value="${administrador.telefone}" name="telefone"></p>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-warning">Salvar alterações</button>
+                                        </div>
+                                    </form>
+                                    <div class="d-flex justify-content-end">
+                                        <form action="/enviar-email-redefinicao-senha" class="mt-3" method="post" th:object="${usuario}">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                            <button  type="submit" class="btn btn-warning">Redefinição de Senha</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                                
+                            </div>
+                            <script>
+                                // Função para formatar o telefone
+                                function formatarTelefone(input) {
+                                    // Remove todos os caracteres não numéricos
+                                    var numeros = input.value.replace(/\D/g, '');
+                                    
+                                    // Verifica o comprimento atual da entrada de números
+                                    var comprimento = numeros.length;
+                            
+                                    // Aplica a formatação de acordo com o comprimento atual
+                                    var telefoneFormatado;
+                                    if (comprimento <= 2) {
+                                        telefoneFormatado = '(' + numeros;
+                                    } else if (comprimento <= 6) {
+                                        telefoneFormatado = '(' + numeros.substring(0, 2) + ') ' + numeros.substring(2);
+                                    } else if (comprimento <= 10) {
+                                        telefoneFormatado = '(' + numeros.substring(0, 2) + ') ' + numeros.substring(2, 6) + '-' + numeros.substring(6);
+                                    } else {
+                                        telefoneFormatado = '(' + numeros.substring(0, 2) + ') ' + numeros.substring(2, 7) + '-' + numeros.substring(7, 11);
+                                    }
+                                    
+                                    // Define o valor formatado de volta no input
+                                    input.value = telefoneFormatado;
+                                }
+                            
+                                // Adiciona um event listener para formatar o telefone enquanto o usuário digita
+                                document.getElementById('telefoneInput').addEventListener('input', function() {
+                                    formatarTelefone(this);
+                                });
+                            
+                                // Adiciona um event listener para limitar o número de caracteres no telefone
+                                document.getElementById('telefoneInput').addEventListener('keypress', function(e) {
+                                    // Permite apenas números e uma quantidade máxima de 11 dígitos
+                                    var input = e.key;
+                                    var numeros = /^[0-9]+$/;
+                                    if (!input.match(numeros) || this.value.replace(/\D/g, '').length >= 11) {
+                                        e.preventDefault();
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+
+                    <div th:if="${administrador != null and administrador.email == 'www.lucasmello@gmail.com'}" class="justify-content-center p-3 rounded-2">
+                      <hr>
+                      <div class="camposBotoesAuditoriaUsuariosAdministradores" style="text-align-last: center;">
+                          <div class="botoesDoCampoAuditoriaUsuariosAdministradores">
+                              <a class="btn btn-primary" th:href="@{/administradores}">Administradores</a>
+                          </div>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,6 +19,7 @@ public class AcaoSocial {
 
     private String nome;
     private String local;
+    private String descricao;
     private Date data_final;
     private Date data_inicial;
 
@@ -47,6 +48,14 @@ public class AcaoSocial {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Date getData_final() {
