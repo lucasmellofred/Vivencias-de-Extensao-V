@@ -19,8 +19,15 @@ import br.vivenciasextensao.prancheta.repository.AcaoSocialRepository;
 public class AcaoSocialController {
     @Autowired
     private AcaoSocialRepository acaoSocialRepository;
+
+    @GetMapping
+    public String index(Model model) {
+        List<AcaoSocial> acoesSociais = acaoSocialRepository.findAll();
+        model.addAttribute("acoesSociais", acoesSociais);
+        return "index";
+    }
     
-    @GetMapping("/todas-acoes-sociais")
+    @GetMapping("/listar-todas-acoes-sociais")
     public String acaoSocial(Model model) {
         List<AcaoSocial> acoesSociais = acaoSocialRepository.findAll();
         model.addAttribute("acoesSociais", acoesSociais);
@@ -33,7 +40,8 @@ public class AcaoSocialController {
     }
 
     @GetMapping("/cadastrar-acao-social")
-    public String cadastrarAcaoSocial() {
+    public String cadastrarAcaoSocial(Model model) {
+        model.addAttribute("doacao", new AcaoSocial());
         return "gestaoDoacao/html/cadastroAcao";
     }
 

@@ -7,9 +7,29 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/style-padrao.css}" type="text/css">
     <title>Página inicial</title>
 </head>
 <body>
-    A
+    <div class="m-5">
+        <table class="table table-bordered rounded-2 shadow-lg" id="minha-tabela" style="width: 100%;">
+            <thead class="z-0 sticky-top" id="cabecalhoColunas">
+                <tr>
+                    <th class="colunaNome" data-col="nome">Nome</th>
+                    <th class="colunaLocal" data-col="local">Local</th>
+                    <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
+                    <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
+                </tr>
+            </thead>
+            <tbody style="height: 200px !important; overflow-y: auto !important;">
+                <tr th:each="acaoSocial : ${acoesSociais}" th:attr="data-id=${acaoSocial.id}">
+                    <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
+                    <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
+                    <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
+                    <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
