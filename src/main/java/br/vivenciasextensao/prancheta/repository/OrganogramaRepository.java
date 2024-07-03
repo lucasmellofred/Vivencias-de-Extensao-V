@@ -16,28 +16,28 @@ import br.vivenciasextensao.prancheta.entity.Organograma;
 @Repository
 public interface OrganogramaRepository extends JpaRepository<Item, Long> {
     /* pesquisar organograma pelo id do evento */
-    @Query("SELECT f FROM Organograma f WHERE (f.id_evento) == :id_do_evento")
-    List<Organograma> findOrganogramaPeloIdEvento(@Param("id_do_evento") Integer id_evento);
-
-    /*pesquisar organograma pelo id do item */
-
-    @Query("SELECT f FROM Organograma f WHERE (f.id_item) == :id_do_item")
-    List<Organograma> findOrganogramaPeloIdItem(@Param("id_do_item") Integer id_item);
-
-    /*pesquisar organograma pela quantidade faltante */
-
-    @Query("SELECT f FROM Organograma f WHERE (f.quantidade_faltante) == :quantos_faltam")
-    List<Organograma> findOrganogramaPeloQauntosFaltam(@Param("quantos_faltam") Integer faltante);
-
-    /*pesquisar organograma pela quantidade pronta */
-
-    @Query("SELECT f FROM Organograma f WHERE (f.quantidade_faltante) == :prontos")
-    List<Organograma> findOrganogramaPeloProntos(@Param("prontos") Integer prontos);
-
-    /*query buscando os prontos */
-
-    @Query("SELECT new Map(f.id_organograma as id_organograma, f.id_evento as id_evento,) FROM Organograma f WHERE f.quantidade_faltante = 0")
-    List<Map<String, Object>> findOrganogramaProntos();
+//    @Query("SELECT f FROM Organograma f WHERE (f.id_evento) == :id_do_evento")
+//    List<Organograma> findOrganogramaPeloIdEvento(@Param("id_do_evento") Integer id_evento);
+//
+//    /*pesquisar organograma pelo id do item */
+//
+//    @Query("SELECT f FROM Organograma f WHERE (f.id_item) == :id_do_item")
+//    List<Organograma> findOrganogramaPeloIdItem(@Param("id_do_item") Integer id_item);
+//
+//    /*pesquisar organograma pela quantidade faltante */
+//
+//    @Query("SELECT f FROM Organograma f WHERE (f.quantidade_faltante) == :quantos_faltam")
+//    List<Organograma> findOrganogramaPeloQauntosFaltam(@Param("quantos_faltam") Integer faltante);
+//
+//    /*pesquisar organograma pela quantidade pronta */
+//
+//    @Query("SELECT f FROM Organograma f WHERE (f.quantidade_faltante) == :prontos")
+//    List<Organograma> findOrganogramaPeloProntos(@Param("prontos") Integer prontos);
+//
+//    /*query buscando os prontos */
+//
+//    @Query("SELECT new Map(f.id_organograma as id_organograma, f.id_evento as id_evento,) FROM Organograma f WHERE f.quantidade_faltante = 0")
+//    List<Map<String, Object>> findOrganogramaProntos();
 
 
     /*find all e outros padrões */

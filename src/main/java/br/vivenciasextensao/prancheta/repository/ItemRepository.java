@@ -14,19 +14,19 @@ import br.vivenciasextensao.prancheta.entity.Item;
 public interface ItemRepository extends JpaRepository<Item, Long>{
     /* lendo */
 
-    @Query("SELECT new Map(f.id as id/*, f.valorEstimado as valorEstimado*/) FROM Itens f WHERE f.id = 1")
-    List<Map<String, Object>> findItensByIdOne();
+    //@Query("SELECT new Map(f.id as id/*, f.valorEstimado as valorEstimado*/) FROM Itens f WHERE f.id = 1")
+    //List<Map<String, Object>> findItensByIdOne();
 
 
     /* buscando pelo nome_item */
 
-    @Query("SELECT f FROM Itens f WHERE (f.nome_item) == :nome_do_item")
-    List<Item> findItemPeloNome(@Param("nome_do_item") String nome_item);
+    //@Query("SELECT f FROM Itens f WHERE (f.nome_item) == :nome_do_item")
+    //List<Item> findItemPeloNome(@Param("nome_do_item") String nome_item);
 
     /* colocando um novo item */
 
-    @Query("INSERT f Into Itens f Values (f.nome_item) == :nome_do_item")
-    List<Item> Inserir_novo_item(@Param("nome_do_item") String nome_item);
+    //@Query("INSERT f Into Itens f Values (f.nome_item) == :nome_do_item")
+    //List<Item> Inserir_novo_item(@Param("nome_do_item") String nome_item);
 
     
     /*find all e outros padrões */

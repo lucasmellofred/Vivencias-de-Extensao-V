@@ -32,6 +32,11 @@ public class AcaoSocialController {
         return "acoesSociais/nova-acao-social";
     }
 
+    @GetMapping("/cadastrar-acao-social")
+    public String cadastrarAcaoSocial() {
+        return "gestaoDoacao/html/cadastroAcao";
+    }
+
     @PostMapping("/salvar-acao-social")
     public String salvarAcaoSocial(@RequestParam(name = "nome", required = true) String nome,
                                    @RequestParam(name = "local", required = true) String local,
