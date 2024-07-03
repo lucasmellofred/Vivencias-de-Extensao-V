@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -26,6 +25,7 @@ import br.vivenciasextensao.prancheta.service.CookieService;
 import br.vivenciasextensao.prancheta.service.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -222,32 +222,87 @@ public class LoginController {
     }
 
     @GetMapping("/administradores")
-	public String index(Model model, HttpServletResponse response, HttpServletRequest request, @CookieValue(name = "userId", defaultValue = "0") Long userId) throws UnsupportedEncodingException {
+    public String index(Model model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
+        if (!administradoresService.isAdminAutenticado(request)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            model.addAttribute("error", "Acesso proibido");
+            model.addAttribute("message", "Você não tem permissão para acessar esta página");
+            model.addAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
+            return "redirect:/error/sem-permissao";
+        }
+
         String token = CookieService.getCookieIdAndToken(request, "userAccessToken", "");
-		if (!administradoresService.isAdminAutenticado(request)) {
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			model.addAttribute("error", "Acesso proibido");
-			model.addAttribute("message", "Você não tem permissão para acessar esta página");
-			model.addAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
-			return "/error/error-template";
-		}
-		
-		List<Administrador> administradores = (List<Administrador>) administradoresRepository.findAll();
-		model.addAttribute("administradores", administradores);
-        Optional<Administrador> administradorOptional = administradoresRepository.findByIdAndToken(userId, token);
-        Administrador administrador = administradorOptional.get();
-                model.addAttribute("administrador", administrador);
+        long userId = Long.parseLong(CookieService.getCookieIdAndToken(request, "userId", "0"));
+        token = CookieService.getCookieIdAndToken(request, "adminAccessToken", "");
+        userId = Long.parseLong(CookieService.getCookieIdAndToken(request, "adminId", "0"));
+
+        if (userId != 0 && !token.isEmpty()) {
+            Optional<Administrador> administradorOptional = administradoresRepository.findByIdAndToken(userId, token);
+            if (administradorOptional.isPresent()) {
+                Administrador administrador = administradorOptional.get();
+                if (!administrador.getEmail().equals("www.lucasmello@gmail.com")) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    model.addAttribute("error", "Acesso proibido");
+                    model.addAttribute("message", "Você não tem permissão para acessar esta página");
+                    model.addAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
+                    return "redirect:/error/sem-permissao";
+                }
+                model.addAttribute("administrador", administrador.getEmail());
                 model.addAttribute("nome", administrador.getNome());
-		return "administradores/todos-administradores";
-	}
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                model.addAttribute("error", "Acesso proibido");
+                model.addAttribute("message", "Você não tem permissão para acessar esta página");
+                model.addAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
+                return "redirect:/error/sem-permissao";
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            model.addAttribute("error", "Acesso proibido");
+            model.addAttribute("message", "Você não tem permissão para acessar esta página");
+            model.addAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
+            return "redirect:/error/sem-permissao";
+        }
+
+        List<Administrador> administradores = (List<Administrador>) administradoresRepository.findAll();
+        model.addAttribute("administradores", administradores);
+
+        return "administradores/todos-administradores";
+    }
+
+    @GetMapping("/error/sem-permissao")
+    public String semPermissao(HttpServletResponse response, HttpServletRequest request) {
+        return "error/sem-permissao";
+    }
 
     @GetMapping("/administradores/novo")
-	public String novo(HttpServletRequest request, @CookieValue(name = "userId", defaultValue = "0") Long userId) throws UnsupportedEncodingException {
-		if (!administradoresService.isAdminAutenticado(request)) {
-			return "redirect:/error/sem-permissao";
-		}
-		return "administradores/novo";
-	}
+    public String novo(HttpServletRequest request, @CookieValue(name = "userId", defaultValue = "0") Long userId) throws UnsupportedEncodingException {
+        if (!administradoresService.isAdminAutenticado(request)) {
+            return "redirect:/error/sem-permissao";
+        }
+
+        String token = CookieService.getCookieIdAndToken(request, "userAccessToken", "");
+        userId = Long.parseLong(CookieService.getCookieIdAndToken(request, "userId", "0"));
+        token = CookieService.getCookieIdAndToken(request, "adminAccessToken", "");
+        userId = Long.parseLong(CookieService.getCookieIdAndToken(request, "adminId", "0"));
+
+        if (userId != 0 && !token.isEmpty()) {
+            Optional<Administrador> administradorOptional = administradoresRepository.findByIdAndToken(userId, token);
+            if (administradorOptional.isPresent()) {
+                Administrador administrador = administradorOptional.get();
+                if (!administrador.getEmail().equals("www.lucasmello@gmail.com")) {
+                    return "redirect:/error/sem-permissao";
+                }
+            } else {
+                return "redirect:/error/sem-permissao";
+            }
+        } else {
+            return "redirect:/error/sem-permissao";
+        }
+
+        return "administradores/novo";
+    }
+
 
     @PostMapping("/administradores/criar")
 	public String criar(Model model, Administrador administrador, HttpServletRequest request, @CookieValue(name = "userId", defaultValue = "0") Long userId) throws UnsupportedEncodingException {

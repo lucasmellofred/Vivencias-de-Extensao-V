@@ -68,7 +68,7 @@
 			</div>
 			<div class="p-3 rounded-2" style="background-color: #fff3cd;">
 				<div>
-					<div th:if="${administrador != null and administrador.email == 'www.lucasmello@gmail.com'}" class="justify-content-center p-3 rounded-2">
+					<div th:if="${administrador == 'www.lucasmello@gmail.com'}" class="justify-content-center p-3 rounded-2">
 						<!--<a class="btn btn-warning mb-3" th:href="@{/administradores/novo}">Novo administrador</a>-->
 						<button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 						Novo administrador
@@ -306,7 +306,7 @@
 						</div>
 					</div>
 
-					<table class="table table-bordered border-primary">
+					<table class="table table-bordered">
 						<tr>
 							<th>ID</th>
 							<th>Nome</th>
