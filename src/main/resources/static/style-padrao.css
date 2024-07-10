@@ -1,6 +1,9 @@
 body {
     /*background-color: #ffe69c;*/
     background-color: #f8f8f8;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 a {

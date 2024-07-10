@@ -11,121 +11,75 @@
     <title>Ações Sociais</title>
 </head>
 <body>
-<header style="display: block;">
-    <div class="d-flex flex-column flex-shrink-0 p-4 text-white bg-dark sticky-top">
-        <nav class="navbar navbar-dark bg-dark fixed-top" >
-            <style>
-               
-            </style>
-            <div class="container-fluid">
+    <header th:replace="~{layout :: header-content}"></header>
+    <main class="container">
+        <div class="d-flex flex-column flex-shrink-0" style="float: left; width: -webkit-fill-available;">
+            <div class="p-3 rounded-2">
+                <h1>Todas as ações sociais</h1>
+            
+                <div class="mt-5">
+                    <table class="table table-bordered shadow-lg" id="minha-tabela" style="width: 100%;background-color: #ffe6e6!important;">
+                        <thead class="z-0 sticky-top" id="cabecalhoColunas">
+                            <tr>
+                                <th class="colunaAcao" data-col="acao">Ação</th>
+                                <th class="colunaId" data-col="id">ID</th>
+                                <th class="colunaNome" data-col="nome">Nome</th>
+                                <th class="colunaLocal" data-col="local">Local</th>
+                                <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
+                                <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
+                            </tr>
+                        </thead>
+                        <tbody style="height: 200px !important; overflow-y: auto !important;">
+                            <tr th:each="acaoSocial : ${acoesSociais}" th:attr="data-id=${acaoSocial.id}">
+                                <td class="coluna" data-col="acao">
+                                    <div class="d-flex justify-content-center">
+                                        <a class="btn btn-warning" th:href="@{'/editar-acao-social/' + ${acaoSocial.id}}" data-bs-toggle="tooltip" data-bs-original-title="Editar ação social">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+                                            </svg>
+                                        </a>
 
-                <ul class="nav">
-                    <a class="navbar-brand" th:href="@{/}">
-                        Página inicial
-                    </a>
-
-                    <li class="nav-item" style="list-style: none;">
-                        <a class="nav-link" th:href="@{/nova-acao-social}" role="button" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill mb-1" viewBox="0 0 16 16">
-                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
-                              </svg>
-                            <span class="textoSpanGuiaDoSistema">Nova ação social</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item" style="list-style: none;">
-                        <a class="nav-link" th:href="@{/listar-todas-acoes-sociais}" role="button" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check mb-1" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                            </svg>
-                            <span class="textoSpanGuiaDoSistema">Todas ações sociais</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown" style="list-style: none;">
-                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle mb-1" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                        </svg>
-                        <span class="textoSpanMinhaConta">Minha Conta</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" th:href="@{/minhaConta/logado}">Gerenciar minha conta</a></li>
-                            <li><a class="dropdown-item" th:href="@{/sair}">Sair</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-<div class="d-flex flex-column flex-shrink-0" style="float: left; width: -webkit-fill-available;">
-    <div class="p-3 rounded-2">
-        <h1>Todas as ações sociais</h1>
-    
-        <div class="mt-5">
-            <table class="table table-bordered shadow-lg" id="minha-tabela" style="width: 100%;">
-                <thead class="z-0 sticky-top" id="cabecalhoColunas">
-                    <tr>
-                        <th class="colunaAcao" data-col="acao">Ação</th>
-                        <th class="colunaId" data-col="id">ID</th>
-                        <th class="colunaNome" data-col="nome">Nome</th>
-                        <th class="colunaLocal" data-col="local">Local</th>
-                        <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
-                        <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
-                    </tr>
-                </thead>
-                <tbody style="height: 200px !important; overflow-y: auto !important;">
-                    <tr th:each="acaoSocial : ${acoesSociais}" th:attr="data-id=${acaoSocial.id}">
-                        <td class="coluna" data-col="acao">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-warning" th:href="@{'/editar-acao-social/' + ${acaoSocial.id}}" data-bs-toggle="tooltip" data-bs-original-title="Editar ação social">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
-                                    </svg>
-                                </a>
-
-                                <a class="btn btn-danger ms-1 me-1" type="button" data-bs-toggle="modal" th:data-bs-target="'#staticBackdrop' + ${acaoSocial.id}" data-bs-original-title="Excluir contrato">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 mb-1" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path>
-                                    </svg>
-                                </a>
-                                
-                                <div class="modal fade" th:id="'staticBackdrop' + ${acaoSocial.id}" tabindex="-1" aria-labelledby="staticBackdropLabel${acaoSocial.id}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel${acaoSocial.id}">Tem certeza de que deseja excluir?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><b>Excluir</b> o contrato de ID <input type="hidden" name="id" th:value="${acaoSocial.id}" th:text="${acaoSocial.id}"/> é uma ação <b><font color="red">irreversível!</font></b></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form th:action="@{/deletar-acao-social/{id}(id=${acaoSocial.id})}" method="post">
-                                                        <button type="submit" class="btn btn-danger">Excluir</button>
-                                                </form>
+                                        <a class="btn btn-danger ms-1 me-1" type="button" data-bs-toggle="modal" th:data-bs-target="'#staticBackdrop' + ${acaoSocial.id}" data-bs-original-title="Excluir contrato">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 mb-1" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path>
+                                            </svg>
+                                        </a>
+                                        
+                                        <div class="modal fade" th:id="'staticBackdrop' + ${acaoSocial.id}" tabindex="-1" aria-labelledby="staticBackdropLabel${acaoSocial.id}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel${acaoSocial.id}">Tem certeza de que deseja excluir?</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><b>Excluir</b> o contrato de ID <input type="hidden" name="id" th:value="${acaoSocial.id}" th:text="${acaoSocial.id}"/> é uma ação <b><font color="red">irreversível!</font></b></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form th:action="@{/deletar-acao-social/{id}(id=${acaoSocial.id})}" method="post">
+                                                                <button type="submit" class="btn btn-danger">Excluir</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
                                     </div>
-                                </div>
+                                </td>
+                                <td class="coluna" data-col="id" th:text="${acaoSocial.id}"></td>
+                                <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
+                                <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
+                                <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
+                                <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                                <a class="btn btn-success mt-2 mb-2" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
-                            </div>
-                        </td>
-                        <td class="coluna" data-col="id" th:text="${acaoSocial.id}"></td>
-                        <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
-                        <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
-                        <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
-                        <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
         </div>
-
-    </div>
-</div>
+    </main>
 </body>
 </html>
