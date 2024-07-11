@@ -96,7 +96,7 @@ public class LoginController {
             CookieService.setCookie(response, "adminVolatileServerToken", tokens.get("volatileServerToken"), tempoLogado);
             CookieService.setCookie(response, "adminId", String.valueOf(administrador.getId()), tempoLogado);
             CookieService.setCookie(response, "adminNome", administrador.getNome(), tempoLogado);
-            return "redirect:/";
+            return "redirect:/listar-todas-acoes-sociais";
         }
         // Se não encontrar nem administrador nem usuário, retorna para a página de login com mensagem de erro
         model.addAttribute("erro", "E-mail ou senha inválidos");
