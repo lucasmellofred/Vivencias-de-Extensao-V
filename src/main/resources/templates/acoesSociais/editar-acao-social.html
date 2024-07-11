@@ -9,6 +9,11 @@
     <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/style-padrao.css}" type="text/css">
     <title th:text="'Editando ' + ${acaoSocial.nome}"></title>
+    <style>
+        .labelDaInput{
+            color: #b22222;
+        }
+    </style>
 </head>
 <body>
     <header th:replace="~{layout :: header-content}"></header>
@@ -21,21 +26,21 @@
                     <input type="hidden" name="acaoSocialId" th:value="${acaoSocial.id}"/>
                     <div class="d-flex">
                         <div class="form-group w-50 me-2">
-                            <label for="nome">Nome</label>
+                            <label class="labelDaInput" for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" th:value="${acaoSocial.nome}">
                         </div>
                         <div class="form-group w-50">
-                            <label for="local">Local</label>
+                            <label class="labelDaInput" for="local">Local</label>
                             <input type="text" class="form-control" id="local" name="local" th:value="${acaoSocial.local}">
                         </div>
                     </div>
                     <div class="d-flex">
                         <div class="form-group w-50 me-2">
-                            <label for="data_inicial">Data de Início</label>
+                            <label class="labelDaInput" for="data_inicial">Data de Início</label>
                             <input type="date" class="form-control" id="data_inicial" name="data_inicial" th:value="${#dates.format(acaoSocial.data_inicial, 'yyyy-MM-dd')}">
                         </div>
                         <div class="form-group w-50">
-                            <label for="data_final">Data de Término</label>
+                            <label class="labelDaInput" for="data_final">Data de Término</label>
                             <input type="date" class="form-control" id="data_final" name="data_final" th:value="${#dates.format(acaoSocial.data_final, 'yyyy-MM-dd')}">
                         </div>
                     </div>
@@ -46,7 +51,14 @@
             </div>
             <hr>
             <th:block th:if="${acaoSocial.itens != null and !acaoSocial.itens.isEmpty()}">
-                <h2>Itens doados</h2>
+                <div class="d-flex">
+                    <div class="me-auto">
+                        <h2 >Itens doados</h2>
+                    </div>
+                    <div>
+                        <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
+                    </div>
+                </div>
                 <table class="table table-bordered  me-2 pt-3" id="minha-tabela">
                     <thead class="z-0 sticky-top">
                         <tr>
@@ -76,9 +88,13 @@
             </th:block>
 
             <th:block th:unless="${acaoSocial.itens != null and !acaoSocial.itens.isEmpty()}">
-                <div class="d-flex justify-content-center">
-                    <h1>Não há itens cadastrados</h1>
-                    <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
+                <div class="d-flex">
+                    <div class="ms-auto me-auto">
+                        <h2>Não há doações cadastradas</h2>
+                    </div>
+                    <div>
+                        <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
+                    </div>
                 </div>
             </th:block>
         </div>

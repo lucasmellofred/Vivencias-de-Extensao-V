@@ -11,27 +11,122 @@
     <title>Página inicial</title>
 </head>
 <body>
-    <div class="m-5">
-        <main class="ant-layout-content css-dev-only-do-not-override-m4timi" style="padding: 50px; max-width: 800px; margin: 0px auto;"><h2 class="ant-typography css-dev-only-do-not-override-m4timi">Projeto de Ação Social</h2><div class="ant-typography css-dev-only-do-not-override-m4timi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non nisi euismod, viverra nisi eu, finibus ipsum. Praesent laoreet ligula sit amet ex faucibus lacinia. Sed non eleifend lectus. Sed tempus orci ac ex malesuada, nec lobortis nulla varius.</div><div class="ant-typography css-dev-only-do-not-override-m4timi">Vestibulum imperdiet eros nec nulla sollicitudin, quis tempor libero vulputate. Cras non enim sit amet dui fermentum tempus. Nam elementum erat at quam consectetur, non molestie risus consequat.</div><h3 class="ant-typography css-dev-only-do-not-override-m4timi">Nosso Objetivo</h3><div class="ant-typography css-dev-only-do-not-override-m4timi">Nossa missão é promover ações sociais que impactem positivamente a comunidade local, focando em áreas como educação, saúde, meio ambiente e assistência social.</div><h3 class="ant-typography css-dev-only-do-not-override-m4timi">Quem Somos</h3><div class="ant-typography css-dev-only-do-not-override-m4timi">Somos uma equipe dedicada de voluntários e profissionais comprometidos em fazer a diferença na vida das pessoas. Acreditamos no poder da colaboração e da solidariedade para transformar realidades.</div></main>
-        
-        <table class="table table-bordered rounded-2 shadow-lg" id="minha-tabela" style="width: 100%;">
-            <thead class="z-0 sticky-top" id="cabecalhoColunas">
-                <tr>
-                    <th class="colunaNome" data-col="nome">Nome</th>
-                    <th class="colunaLocal" data-col="local">Local</th>
-                    <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
-                    <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
-                </tr>
-            </thead>
-            <tbody style="height: 200px !important; overflow-y: auto !important;">
-                <tr th:each="acaoSocial : ${acoesSociais}" th:attr="data-id=${acaoSocial.id}">
-                    <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
-                    <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
-                    <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
-                    <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="d-flex justify-content-center m-5">
+        <!--<main class="ant-layout-content css-dev-only-do-not-override-m4timi" style="padding: 50px; max-width: 800px; margin: 0px auto;">
+            <h2 class="ant-typography css-dev-only-do-not-override-m4timi">Projeto de Ação Social</h2>
+            <div class="ant-typography css-dev-only-do-not-override-m4timi">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non nisi euismod, viverra nisi eu, finibus ipsum. Praesent laoreet ligula sit amet ex faucibus lacinia. Sed non eleifend lectus. Sed tempus orci ac ex malesuada, nec lobortis nulla varius.
+            </div>
+            <div class="ant-typography css-dev-only-do-not-override-m4timi">
+                Vestibulum imperdiet eros nec nulla sollicitudin, quis tempor libero vulputate. Cras non enim sit amet dui fermentum tempus. Nam elementum erat at quam consectetur, non molestie risus consequat.
+            </div>
+            <h3 class="ant-typography css-dev-only-do-not-override-m4timi">Nosso Objetivo</h3>
+            <div class="ant-typography css-dev-only-do-not-override-m4timi">
+                Nossa missão é promover ações sociais que impactem positivamente a comunidade local, focando em áreas como educação, saúde, meio ambiente e assistência social.
+            </div>
+            <h3 class="ant-typography css-dev-only-do-not-override-m4timi">Quem Somos</h3>
+            <div class="ant-typography css-dev-only-do-not-override-m4timi">
+                Somos uma equipe dedicada de voluntários e profissionais comprometidos em fazer a diferença na vida das pessoas. Acreditamos no poder da colaboração e da solidariedade para transformar realidades.
+            </div>
+        </main>-->
+
+        <div style="width: 70rem;">
+            <div class="mb-5 shadow-lg">
+                <div id="carouselExampleCaptions" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>            
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="image-container">
+                                <img src="/img/doacao.jpg" class="d-block w-100" alt="Slide 1">
+                                <div class="overlay"></div>
+                            </div>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Projeto de Ação Social</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non nisi euismod, viverra nisi eu, finibus ipsum. Praesent laoreet ligula sit amet ex faucibus lacinia. Sed non eleifend lectus. Sed tempus orci ac ex malesuada, nec lobortis nulla varius. Vestibulum imperdiet eros nec nulla sollicitudin, quis tempor libero vulputate. Cras non enim sit amet dui fermentum tempus. Nam elementum erat at quam consectetur, non molestie risus consequat.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="image-container">
+                                <img src="/img/unnamed.jpg" class="d-block w-100" alt="Slide 2">
+                                <div class="overlay"></div>
+                            </div>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Nosso Objetivo</h5>
+                                <p>Nossa missão é promover ações sociais que impactem positivamente a comunidade local, focando em áreas como educação, saúde, meio ambiente e assistência social.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="image-container">
+                                <img src="/img/mao.jpg" class="d-block w-100" alt="Slide 3">
+                                <div class="overlay"></div>
+                            </div>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Quem Somos</h5>
+                                <p>Somos uma equipe dedicada de voluntários e profissionais comprometidos em fazer a diferença na vida das pessoas. Acreditamos no poder da colaboração e da solidariedade para transformar realidades.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+                <style>
+                    .carousel-item {
+                        position: relative;
+                    }
+                    
+                    .image-container {
+                        position: relative;
+                    }
+                    
+                    .image-container img {
+                        width: 100%;
+                        height: auto;
+                        display: block;
+                    }
+                    
+                    .overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de transparência */
+                    }
+                </style>
+            </div>
+
+            <div>
+                <table class="table table-bordered rounded-2 shadow-lg" id="minha-tabela">
+                    <thead class="z-0 sticky-top" id="cabecalhoColunas">
+                        <tr>
+                            <th class="colunaNome" data-col="nome">Nome</th>
+                            <th class="colunaLocal" data-col="local">Local</th>
+                            <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
+                            <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
+                        </tr>
+                    </thead>
+                    <tbody style="height: 200px !important; overflow-y: auto !important;">
+                        <tr th:each="acaoSocial : ${acoesSociais}" th:attr="data-id=${acaoSocial.id}">
+                            <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
+                            <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
+                            <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
+                            <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <footer th:replace="~{layout :: footer-content}"></footer>
