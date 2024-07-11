@@ -51,7 +51,11 @@ INSERT INTO `eventos` (`id_evento`, `nome_evento`, `endereco`, `data_inicial`, `
 
 CREATE TABLE `itens` (
   `id_item` int(11) NOT NULL,
-  `nome_item` varchar(255) NOT NULL
+  `nome_item` varchar(255) NOT NULL,
+  `codigo_identificacao` varchar(255) NOT NULL,
+  `categoria` varchar(255) NOT NULL,
+  `descricao` varchar(255) NOT NULL,
+  `info_adicional` varchar(255) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
