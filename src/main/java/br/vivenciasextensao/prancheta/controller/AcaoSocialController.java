@@ -64,7 +64,7 @@ public class AcaoSocialController {
         acaoSocial.setData_final(data_final);
 
         acaoSocialRepository.save(acaoSocial);
-        return "redirect:/todas-acoes-sociais";
+        return "redirect:/listar-todas-acoes-sociais";
     }
 
     @GetMapping("/editar-acao-social/{id}")
@@ -89,7 +89,7 @@ public class AcaoSocialController {
         acaoSocial.setData_final(data_final);
 
         acaoSocialRepository.save(acaoSocial);
-        return "redirect:/todas-acoes-sociais";
+        return "redirect:/listar-todas-acoes-sociais";
     }
 
     @PostMapping("/deletar-acao-social/{id}")
@@ -97,7 +97,7 @@ public class AcaoSocialController {
         AcaoSocial acaoSocial = acaoSocialRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid AcaoSocial ID:" + id));
         acaoSocialRepository.delete(acaoSocial);
-        return "redirect:/todas-acoes-sociais";
+        return "redirect:/listar-todas-acoes-sociais";
     }
 
 }

@@ -8,57 +8,80 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/style-padrao.css}" type="text/css">
-    <title th:text="'Editar Ação Social ' + ${acaoSocial.id}"></title>
+    <title th:text="'Editando ' + ${acaoSocial.nome}"></title>
 </head>
 <body>
     <header th:replace="~{layout :: header-content}"></header>
 
-    <form th:action="@{/salvar-acao-social/{id}(id=${acaoSocial.id})}" th:object="${acaoSocial}" method="post">
-        <input type="hidden" name="acaoSocialId" th:value="${acaoSocial.id}"/>
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" th:value="${acaoSocial.nome}">
-        </div>
-        <div class="form-group">
-            <label for="local">Local</label>
-            <input type="text" class="form-control" id="local" name="local" th:value="${acaoSocial.local}">
-        </div>
-        <div class="form-group">
-            <label for="data_inicial">Data de Início</label>
-            <input type="date" class="form-control" id="data_inicial" name="data_inicial" th:value="${#dates.format(acaoSocial.data_inicial, 'yyyy-MM-dd')}">
-        </div>
-        <div class="form-group">
-            <label for="data_final">Data de Término</label>
-            <input type="date" class="form-control" id="data_final" name="data_final" th:value="${#dates.format(acaoSocial.data_final, 'yyyy-MM-dd')}">
-        </div>
-        <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
-    
-    <table class="table table-bordered border-primary me-2 pt-3" id="minha-tabela">
-        <thead class="z-0 sticky-top">
-            <tr>
-                <th class="colunaItemAcao" data-col="Itemacao">Ação</th>
-                <th class="colunaItemId" data-col="Itemid">ID</th>
-                <th class="colunaItemNome" data-col="Itemnome">Nome</th>
-                <th class="colunaItemDescricao" data-col="Itemdescricao">Descrição</th>
-                <th class="colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
-                <th class="colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
-                <th class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="item : ${acaoSocial.itens}">
-                <td class="colunaItem" data-col="Itemacao">
+    <main class="container p-3">
+        <h1>Editando <span th:text="${acaoSocial.nome}"></span></h1>
+        <div class="rounded-2 border border-2 p-3 shadow-lg" style="background-color: #ffe6e6;">
+            <div class="mb-4">
+                <form th:action="@{/salvar-acao-social/{id}(id=${acaoSocial.id})}" th:object="${acaoSocial}" method="post">
+                    <input type="hidden" name="acaoSocialId" th:value="${acaoSocial.id}"/>
+                    <div class="d-flex">
+                        <div class="form-group w-50 me-2">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" th:value="${acaoSocial.nome}">
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="local">Local</label>
+                            <input type="text" class="form-control" id="local" name="local" th:value="${acaoSocial.local}">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group w-50 me-2">
+                            <label for="data_inicial">Data de Início</label>
+                            <input type="date" class="form-control" id="data_inicial" name="data_inicial" th:value="${#dates.format(acaoSocial.data_inicial, 'yyyy-MM-dd')}">
+                        </div>
+                        <div class="form-group w-50">
+                            <label for="data_final">Data de Término</label>
+                            <input type="date" class="form-control" id="data_final" name="data_final" th:value="${#dates.format(acaoSocial.data_final, 'yyyy-MM-dd')}">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <th:block th:if="${acaoSocial.itens != null and !acaoSocial.itens.isEmpty()}">
+                <h2>Itens doados</h2>
+                <table class="table table-bordered  me-2 pt-3" id="minha-tabela">
+                    <thead class="z-0 sticky-top">
+                        <tr>
+                            <th class="colunaItemAcao" data-col="Itemacao">Ação</th>
+                            <th class="colunaItemId" data-col="Itemid">ID</th>
+                            <th class="colunaItemNome" data-col="Itemnome">Nome</th>
+                            <th class="colunaItemDescricao" data-col="Itemdescricao">Descrição</th>
+                            <th class="colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
+                            <th class="colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
+                            <th class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${acaoSocial.itens}">
+                            <td class="colunaItem" data-col="Itemacao">
 
-                </td>
-                <td class="colunaItem" data-col="Itemid" th:text="${item.id}"></td>
-                <td class="colunaItemNome" data-col="Itemnome" th:text="${item.nome}"></td>
-                <td class="colunaItemDescricao" data-col="Itemdescricao" th:text="${item.descricao}"></td>
-                <td class="colunaItemCategoria" data-col="ItemCategoria" th:text="${item.categoria}"></td>
-                <td class="colunaItemInfoAdicional" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
-                <td class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
-            </tr>
-        </tbody>
-    </table>
+                            </td>
+                            <td class="colunaItem" data-col="Itemid" th:text="${item.id}"></td>
+                            <td class="colunaItemNome" data-col="Itemnome" th:text="${item.nome}"></td>
+                            <td class="colunaItemDescricao" data-col="Itemdescricao" th:text="${item.descricao}"></td>
+                            <td class="colunaItemCategoria" data-col="ItemCategoria" th:text="${item.categoria}"></td>
+                            <td class="colunaItemInfoAdicional" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
+                            <td class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </th:block>
+
+            <th:block th:unless="${acaoSocial.itens != null and !acaoSocial.itens.isEmpty()}">
+                <div class="d-flex justify-content-center">
+                    <h1>Não há itens cadastrados</h1>
+                    <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
+                </div>
+            </th:block>
+        </div>
+    </main>
 </body>
 </html>

@@ -54,7 +54,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p><b>Excluir</b> o contrato de ID <input type="hidden" name="id" th:value="${acaoSocial.id}" th:text="${acaoSocial.id}"/> é uma ação <b><font color="red">irreversível!</font></b></p>
+                                                        <p><b>Excluir</b> a ação social <span th:text="${acaoSocial.nome}"></span> de ID <input type="hidden" name="id" th:value="${acaoSocial.id}" th:text="${acaoSocial.id}"/> é uma ação <b><font color="red">irreversível!</font></b></p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form th:action="@{/deletar-acao-social/{id}(id=${acaoSocial.id})}" method="post">
