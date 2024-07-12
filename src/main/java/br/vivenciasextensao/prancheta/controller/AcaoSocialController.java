@@ -67,10 +67,21 @@ public class AcaoSocialController {
         return "redirect:/listar-todas-acoes-sociais";
     }
 
+    /*@GetMapping("/editar-acao-social/{id}")
+    public String editarAcaoSocial(Model model, @PathVariable Long id) {
+        AcaoSocial acaoSocial = acaoSocialRepository.findById(id).get();
+        model.addAttribute("acaoSocial", acaoSocial);
+
+        return "acoesSociais/editar-acao-social";
+    }*/
+
+    // O método acima editarAcaoSocial atribui apenas o objeto acaoSocial ao model, mas não os itens associados a ele. Então vamos refazer esse método para atribuir também os itens associados a acaoSocial ao model.
     @GetMapping("/editar-acao-social/{id}")
     public String editarAcaoSocial(Model model, @PathVariable Long id) {
         AcaoSocial acaoSocial = acaoSocialRepository.findById(id).get();
         model.addAttribute("acaoSocial", acaoSocial);
+        model.addAttribute("itens", acaoSocial.getItens());
+
         return "acoesSociais/editar-acao-social";
     }
 

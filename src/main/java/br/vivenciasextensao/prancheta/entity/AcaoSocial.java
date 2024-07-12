@@ -2,6 +2,7 @@ package br.vivenciasextensao.prancheta.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class AcaoSocial {
     private Date data_final;
     private Date data_inicial;
 
-    @OneToMany(mappedBy = "acaoSocial", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "acaoSocial", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Item> itens = new ArrayList<>();
 
     public long getId() {
