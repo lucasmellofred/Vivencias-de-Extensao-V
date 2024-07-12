@@ -15,6 +15,7 @@ import br.vivenciasextensao.prancheta.entity.AcaoSocial;
 import br.vivenciasextensao.prancheta.entity.Item;
 import br.vivenciasextensao.prancheta.repository.AcaoSocialRepository;
 import br.vivenciasextensao.prancheta.repository.ItemRepository;
+import br.vivenciasextensao.prancheta.service.ItemService;
 import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
@@ -29,6 +30,9 @@ import java.util.concurrent.CompletableFuture;
 public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private ItemService itemService;
 
     @Autowired
     private AcaoSocialRepository acaoSocialRepository;
@@ -88,8 +92,6 @@ public class ItemController {
         return "gestaoDoacao/html/cadastroAcao";
     }
 
-  
-
     @Transactional
     @PostMapping("/save")
     public String saveItems(@ModelAttribute("acaoSocialId") Long acaoSocialId, @RequestParam(name = "nome", required = true) String nome, @RequestParam(name = "descricao", required = true) String descricao, @RequestParam(name = "codigoIdentificacao", required = true) String codigoIdentificacao, @RequestParam(name = "infoAdicional", required = true) String infoAdicional, @RequestParam(name = "categoria", required = true) String categoria, RedirectAttributes redirectAttributes) {
@@ -112,6 +114,36 @@ public class ItemController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Ação social não encontrada");
         }
+
+        return "redirect:/editar-acao-social/" + acaoSocialId;
+    }
+
+    @Transactional
+    @PostMapping("/delete/{itemId}")
+    public String deleteItem(@PathVariable("itemId") Long itemId, @ModelAttribute("acaoSocialId") Long acaoSocialId) {
+        itemRepository.deleteById(itemId);
+        return "redirect:/editar-acao-social/" + acaoSocialId;
+    }
+
+    @Transactional
+    @PostMapping("/edit/{itemId}")
+    public String updateItem(@PathVariable("itemId") Long itemId, @PathVariable("acaoSocialId") Long acaoSocialId, @ModelAttribute Item item) {
+        Item itemExistente = itemService.findById(itemId);
+
+        if (itemExistente == null) {
+            return "redirect:/erro";
+        }
+
+        itemExistente.setNome(item.getNome());
+        itemExistente.setDescricao(item.getDescricao());
+        itemExistente.setCodigoIdentificacao(item.getCodigoIdentificacao());
+        itemExistente.setInfoAdicional(item.getInfoAdicional());
+        itemExistente.setCategoria(item.getCategoria());
+
+        AcaoSocial acaoSocial = acaoSocialRepository.findById(acaoSocialId).get();
+        itemExistente.setAcaoSocial(acaoSocial);
+
+        itemRepository.save(itemExistente);
 
         return "redirect:/editar-acao-social/" + acaoSocialId;
     }

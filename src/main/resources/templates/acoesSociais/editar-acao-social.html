@@ -8,6 +8,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="icon" th:href="@{/favicon-32x32.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/style-padrao.css}" type="text/css">
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.7/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.11.0/r-2.5.0/rg-1.4.1/rr-1.4.1/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.7/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.11.0/r-2.5.0/rg-1.4.1/rr-1.4.1/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.js"></script>
+    <link href="https://cdn.datatables.net/v/bs5/cr-1.7.0/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/bs5/cr-1.7.0/datatables.min.js"></script>
+
     <title th:text="'Editando ' + ${acaoSocial.nome}"></title>
     <style>
         .labelDaInput{
@@ -144,92 +153,181 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped me-2 pt-3" id="minha-tabela">
-                    <thead class="z-0 sticky-top">
-                        <tr>
-                            <th class="colunaItemAcao" data-col="Itemacao">Ação</th>
-                            <th class="colunaItemId" data-col="Itemid">ID</th>
-                            <th class="colunaItemNome" data-col="Itemnome">Nome</th>
-                            <th class="colunaItemDescricao" data-col="Itemdescricao">Descrição</th>
-                            <th class="colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
-                            <th class="colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
-                            <th class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="item : ${acaoSocial.itens}">
-                            <td class="colunaItem" data-col="Itemacao">
-                                <a class="btn btn-warning ms-1 me-1" data-bs-toggle="modal" th:data-bs-target="'#staticBackdropEditar' + ${item.id}" data-bs-original-title="Editar edital">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
-                                    </svg>
-                                </a>
-                  
-                                <div class="modal fade" th:id="'staticBackdropEditar' + ${item.id}" tabindex="-2" aria-labelledby="staticBackdropLabelEditarl${item.id}" aria-hidden="true" data-bs-backdrop="static">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel${item.id}">Editar o item <span th:text="${item.nome}"></span></h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                            <form role="form" th:action="@{/item/editar/{id}(id=${item.id})}" method="post" enctype="multipart/form-data" th:object="${item}">
-                                                <div class="d-flex mb-2 mb-1">
-                                                    <div class="form-group w-50 me-2">
-                                                        <label for="nome">Nome do Produto&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                        <input class="form-control" type="text" id="nome" name="nome" required th:value="${item.nome}">
-                                                    </div>
-    
-                                                    <div class="form-group w-50">
-                                                        <label for="codigoIdentificacao">Código de Identificação&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                        <input class="form-control" type="text" id="codigoIdentificacao" name="codigoIdentificacao" required  th:value="${item.codigoIdentificacao}">
-                                                    </div>
-                                                </div>
-    
-                                                <div class="d-flex">
-                                                    <div class="form-group w-50 me-2">
-                                                        <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                        <textarea class="form-control" id="descricao" name="descricao" rows="4" required th:text="${item.descricao}"></textarea>
-                                                    </div>
-    
-                                                    <div class="d-flex align-items-start justify-content-between flex-column w-50">
-                                                        <div class="w-100">
-                                                            <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                            <select class="form-select" id="categoria" name="categoria" required>
-                                                                <option value="" th:selected="${item.categoria == ''}">Selecione uma categoria</option>
-                                                                <option value="Alimento" th:selected="${item.categoria == 'Alimento'}">Alimento</option>
-                                                                <option value="Vestimentas" th:selected="${item.categoria == 'Vestimentas'}">Vestimentas</option>
-                                                                <option value="Produtos" th:selected="${item.categoria == 'Produtos'}">Produtos</option>
-                                                                <option value="Outro" th:selected="${item.categoria == 'Outro'}">Outro</option>
-                                                            </select>
+                <div>
+                    <style>
+                        .coluna { 
+                            align-content: center;
+                        }
+                        .colunaItemAcao {
+                            width: 6.5%!important;
+                        }
+                        .colunaItemId {
+                            width: 5%!important;
+                        }
+                        .colunaItemIdConteudo {
+                            text-align: center;
+                            align-content: center;
+                        }
+                        .colunaItemNome {
+                            width: 20%!important;
+                        }
+                        .colunaItemDescricao {
+                            width: 30%!important;
+                        }
+                        .colunaItemCategoria {
+                            text-align: center;
+                            align-content: center;
+                        }
+                    </style>
+                    <table class="table table-bordered table-striped " id="minha-tabela">
+                        <thead class="z-0 sticky-top">
+                            <tr>
+                                <th class="coluna colunaItemAcao" data-col="Itemacao">Ação</th>
+                                <th class="coluna colunaItemId" data-col="Itemid">ID</th>
+                                <th class="coluna colunaItemNome" data-col="Itemnome">Nome</th>
+                                <th class="coluna colunaItemDescricao" data-col="Itemdescricao">Descrição</th>
+                                <th class="coluna colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
+                                <th class="coluna colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
+                                <th class="coluna colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${acaoSocial.itens}">
+                                <td class="colunaItem align-content-center" data-col="Itemacao">
+                                    <div class="d-flex align-items-center justify-content-between flex-column">
+                                        <div class="mb-2">
+                                            <a class="btn btn-warning ms-1 me-1" data-bs-toggle="modal" th:data-bs-target="'#staticBackdropEditar' + ${item.id}" data-bs-original-title="Editar item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
+                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+                                                </svg>
+                                            </a>
+                            
+                                            <div class="modal fade" th:id="'staticBackdropEditar' + ${item.id}" tabindex="-2" aria-labelledby="staticBackdropLabelEditarl${item.id}" aria-hidden="true" data-bs-backdrop="static">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel${item.id}">Editar o item <span th:text="${item.nome}"></span></h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-    
-                                                        <div class="w-100">
-                                                            <label for="infoAdicional">Informações adicionais:</label>
-                                                            <input class="form-control info-adicional" type="text" id="infoAdicional" name="infoAdicional" th:value="${item.infoAdicional}">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <div class="modal-body">
+                                                        <form role="form" th:action="@{/acaoSocial/{acaoSocialId}/itens/edit/{itemId}(acaoSocialId=${acaoSocial.id}, itemId=${item.id})}" method="post" enctype="multipart/form-data" th:object="${item}">
+                                                            <div class="d-flex mb-2 mb-1">
+                                                                <div class="form-group w-50 me-2">
+                                                                    <label for="nome">Nome do Produto&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                                    <input class="form-control" type="text" id="nome" name="nome" required th:value="${item.nome}">
+                                                                </div>
+                
+                                                                <div class="form-group w-50">
+                                                                    <label for="codigoIdentificacao">Código de Identificação&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                                    <input class="form-control" type="text" id="codigoIdentificacao" name="codigoIdentificacao" required  th:value="${item.codigoIdentificacao}">
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="d-flex">
+                                                                <div class="form-group w-50 me-2">
+                                                                    <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                                    <textarea class="form-control" id="descricao" name="descricao" rows="4" required th:text="${item.descricao}"></textarea>
+                                                                </div>
+                
+                                                                <div class="d-flex align-items-start justify-content-between flex-column w-50">
+                                                                    <div class="w-100">
+                                                                        <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                                        <select class="form-select" id="categoria" name="categoria" required>
+                                                                            <option value="" th:selected="${item.categoria == ''}">Selecione uma categoria</option>
+                                                                            <option value="Alimento" th:selected="${item.categoria == 'Alimento'}">Alimento</option>
+                                                                            <option value="Vestimentas" th:selected="${item.categoria == 'Vestimentas'}">Vestimentas</option>
+                                                                            <option value="Produtos" th:selected="${item.categoria == 'Produtos'}">Produtos</option>
+                                                                            <option value="Outro" th:selected="${item.categoria == 'Outro'}">Outro</option>
+                                                                        </select>
+                                                                    </div>
+                
+                                                                    <div class="w-100">
+                                                                        <label for="infoAdicional">Informações adicionais:</label>
+                                                                        <input class="form-control info-adicional" type="text" id="infoAdicional" name="infoAdicional" th:value="${item.infoAdicional}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-success mt-2">Salvar</button>
+                                                            <div class="d-flex justify-content-center">
+                                                                <button type="submit" class="btn btn-success mt-2">Salvar</button>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </form>
+                                            </div>
+                                        </div>
+
+                                        <div >
+                                            <a class="btn btn-danger ms-1 me-1" data-bs-toggle="modal" th:data-bs-target="'#staticBackdropExcluirItem' + ${item.id}" data-bs-original-title="Excluir item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3 mb-1" viewBox="0 0 16 16">
+                                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path>
+                                                </svg>
+                                            </a>
+                            
+                                            <div class="modal fade" th:id="'staticBackdropExcluirItem' + ${item.id}" tabindex="-2" aria-labelledby="staticBackdropLabelExcluir${item.id}" aria-hidden="true" data-bs-backdrop="static">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel${item.id}">Tem certeza de que deseja excluir?</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><b>Excluir</b> o item <span th:text="${item.nome}"></span> de ID <input type="hidden" name="id" th:value="${item.id}" th:text="${item.id}"/> é uma ação <b><font color="red">irreversível!</font></b></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form role="form" th:action="@{/acaoSocial/{acaoSocialId}/itens/delete/{itemId}(acaoSocialId=${acaoSocial.id}, itemId=${item.id})}" method="post">
+                                                                <button type="submit" class="btn btn-danger">Excluir</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="colunaItem" data-col="Itemid" th:text="${item.id}"></td>
-                            <td class="colunaItemNome" data-col="Itemnome" th:text="${item.nome}"></td>
-                            <td class="colunaItemDescricao" data-col="Itemdescricao" th:text="${item.descricao}"></td>
-                            <td class="colunaItemCategoria" data-col="ItemCategoria" th:text="${item.categoria}"></td>
-                            <td class="colunaItemInfoAdicional" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
-                            <td class="colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                                <td class="colunaItemIdConteudo" data-col="Itemid" th:text="${item.id}"></td>
+                                <td class="colunaItemNomeConteudo" data-col="Itemnome" th:text="${item.nome}"></td>
+                                <td class="colunaItemDescricaoConteudo" data-col="Itemdescricao" th:text="${item.descricao}"></td>
+                                <td class="colunaItemCategoriaConteudo" data-col="ItemCategoria" th:text="${item.categoria}"></td>
+                                <td class="colunaItemInfoAdicionalConteudo" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
+                                <td class="colunaItemCodigoIdentificacaoConteudo" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <script>
+                        $(document).ready(function () {
+                            var table = $('#minha-tabela').DataTable({
+                                language: {
+                                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json',
+                                    decimal: ",",
+                                },
+                                stateSave: true,
+                                "stateDuration": 60 * 60 * 24 * 30,
+                                //pagingType: 'full_numbers',
+                                scrollX: true, // Habilitar barra de rolagem horizontal
+                                scrollY: '400px',
+                                dom: 'lBfrtip',
+                                
+                                buttons: [
+                                    {
+                                        extend: 'collection',
+                                        text: 'Exportar',
+                                        container: '.barraDeBotoesDesativado',
+                                        className: 'btn btn-info',
+                                        }
+                                ]
+                                ,
+                                dom: 'Qlfrtip',
+                                colReorder: true,
+                            });
+                            
+                            table.draw();
+                          });
+                
+                    </script>
+                </div>
             </th:block>
 
             <th:block th:unless="${acaoSocial.itens != null and !acaoSocial.itens.isEmpty()}">
@@ -238,7 +336,92 @@
                         <h2>Não há doações cadastradas</h2>
                     </div>
                     <div>
-                        <a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNovaDoacao">
+                            Novo Item
+                        </button>
+
+                        <div class="modal fade" id="modalNovaDoacao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalNovaDoacaoLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalNovaDoacaoLabel">Cadastrar um novo item para a doação</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div >
+                                        <form th:action="@{/acaoSocial/{acaoSocialId}/itens/save(acaoSocialId=${acaoSocial.id})}" th:object="${doacao}" method="post">
+                                            <div class="d-flex mb-2 mb-1">
+                                                <div class="form-group w-50 me-2">
+                                                    <label for="nome">Nome do Produto&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                    <input class="form-control" type="text" id="nome" name="nome" required>
+                                                </div>
+
+                                                <div class="form-group w-50">
+                                                    <label for="codigoIdentificacao">Código de Identificação&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                    <input class="form-control" type="text" id="codigoIdentificacao" name="codigoIdentificacao" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <div class="form-group w-50 me-2">
+                                                    <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                    <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+                                                </div>
+
+                                                <div class="d-flex align-items-start justify-content-between flex-column w-50">
+                                                    <div class="w-100">
+                                                        <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
+                                                        <select class="form-select" id="categoria" name="categoria" onchange="showAdditionalFields(this.value)" required>
+                                                            <option value="">Selecione uma categoria</option>
+                                                            <option value="Alimento">Alimento</option>
+                                                            <option value="Vestimentas">Vestimentas</option>
+                                                            <option value="Produtos">Produtos</option>
+                                                            <option value="Outro">Outro</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="w-100" id="additionalFields" style="display: none;">
+                                                        <label id="labelAdicional" for="infoAdicional">Informações adicionais:</label>
+                                                        <input class="form-control info-adicional" type="text" id="infoAdicional" name="infoAdicional" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                function showAdditionalFields(selectedValue) {
+                                                    var additionalFieldsDiv = document.getElementById('additionalFields');
+                                                    var infoAdicionalLabel = document.getElementById('labelAdicional');
+                                                    var infoAdicionalInput = document.getElementById('infoAdicional');
+
+                                                    if (selectedValue === 'Alimento') {
+                                                        //infoAdicionalLabel.innerText = 'Quantidade em quilos (ex: 1,5kg)';
+                                                        // Como quero adicionar o asterisco em vermelho para indicar que  é um campo obrigatório o preenchimento, devemos então alterar o código para:
+                                                        infoAdicionalLabel.innerHTML = 'Quantidade em quilos&nbsp;<b><font color="red" for="cliente">*</font></b>';
+                                                        infoAdicionalInput.setAttribute('placeholder', '1,5kg');
+                                                        additionalFieldsDiv.style.display = 'block';
+                                                    } else if (selectedValue === 'Vestimentas') {
+                                                        infoAdicionalLabel.innerHTML = 'Tipo de Vestimenta&nbsp;<b><font color="red" for="cliente">*</font></b>';
+                                                        infoAdicionalInput.setAttribute('placeholder', 'Ex: Roupas, Cobertores');
+                                                        additionalFieldsDiv.style.display = 'block';
+                                                    } else if (selectedValue === 'Produtos') {
+                                                        infoAdicionalLabel.innerHTML = 'Tipo de Produto&nbsp;<b><font color="red" for="cliente">*</font></b>';
+                                                        infoAdicionalInput.setAttribute('placeholder', 'Ex: Higiene, Produtos de limpeza');
+                                                        additionalFieldsDiv.style.display = 'block';
+                                                    } else {
+                                                        additionalFieldsDiv.style.display = 'none';
+                                                    }
+                                                }
+                                            </script>
+
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <button class="btn btn-success" type="submit">Cadastrar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </th:block>
