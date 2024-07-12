@@ -94,11 +94,22 @@
                                             <div class="d-flex">
                                                 <div class="form-group w-50 me-2">
                                                     <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                    <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+                                                    <textarea class="form-control" id="descricao" name="descricao" rows="7" required></textarea>
                                                 </div>
 
-                                                <div class="d-flex align-items-start justify-content-between flex-column w-50">
-                                                    <div class="w-100">
+                                                <div class="d-flex align-items-start flex-column w-50">
+                                                    <div class="w-100 mb-2">
+                                                        <label for="quantidade">Quantidade</label>
+                                                        <input class="form-control" type="number" id="quantidade" name="quantidade" required oninput="validateNumberInput(this)">
+                                                        <script>
+                                                            function validateNumberInput(input) {
+                                                                // Remove any non-numeric characters
+                                                                input.value = input.value.replace(/[^0-9]/g, '');
+                                                            }
+                                                            </script>
+                                                    </div>
+
+                                                    <div class="w-100 mb-2">
                                                         <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
                                                         <select class="form-select" id="categoria" name="categoria" onchange="showAdditionalFields(this.value)" required>
                                                             <option value="">Selecione uma categoria</option>
@@ -189,6 +200,7 @@
                                 <th class="coluna colunaItemCategoria" data-col="ItemCategoria">Categoria</th>
                                 <th class="coluna colunaItemInfoAdicional" data-col="ItemInfoAdicional">Informações Adicionais</th>
                                 <th class="coluna colunaItemCodigoIdentificacao" data-col="ItemcodigoIdentificacao">Código de Identificação</th>
+                                <th class="coluna colunaItemQuantidade" data-col="Itemquantidade">Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -227,11 +239,16 @@
                                                             <div class="d-flex">
                                                                 <div class="form-group w-50 me-2">
                                                                     <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                                    <textarea class="form-control" id="descricao" name="descricao" rows="4" required th:text="${item.descricao}"></textarea>
+                                                                    <textarea class="form-control" id="descricao" name="descricao" rows="7" required th:text="${item.descricao}"></textarea>
                                                                 </div>
-                
-                                                                <div class="d-flex align-items-start justify-content-between flex-column w-50">
-                                                                    <div class="w-100">
+
+                                                                <div class="d-flex align-items-start flex-column w-50">
+                                                                    <div class="w-100 mb-2">
+                                                                        <label for="quantidade">Quantidade</label>
+                                                                        <input class="form-control" type="number" id="quantidade" name="quantidade" required oninput="validateNumberInput(this)"  th:value="${item.quantidade}">
+                                                                    </div>
+
+                                                                    <div class="w-100 mb-2">
                                                                         <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
                                                                         <select class="form-select" id="categoria" name="categoria" required>
                                                                             <option value="" th:selected="${item.categoria == ''}">Selecione uma categoria</option>
@@ -293,6 +310,7 @@
                                 <td class="colunaItemCategoriaConteudo" data-col="ItemCategoria" th:text="${item.categoria}"></td>
                                 <td class="colunaItemInfoAdicionalConteudo" data-col="ItemInfoAdicional" th:text="${item.infoAdicional}"></td>
                                 <td class="colunaItemCodigoIdentificacaoConteudo" data-col="ItemcodigoIdentificacao" th:text="${item.codigoIdentificacao}"></td>
+                                <td class="colunaItemQuantidadeConteudo" data-col="Itemquantidade" th:text="${item.quantidade}"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -365,10 +383,21 @@
                                             <div class="d-flex">
                                                 <div class="form-group w-50 me-2">
                                                     <label for="descricao">Descrição&nbsp;<b><font color="red" for="cliente">*</font></b></label>
-                                                    <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+                                                    <textarea class="form-control" id="descricao" name="descricao" rows="7" required></textarea>
                                                 </div>
 
-                                                <div class="d-flex align-items-start justify-content-between flex-column w-50">
+                                                <div class="d-flex align-items-start flex-column w-50">
+                                                    <div class="w-100 mb-2">
+                                                        <label for="quantidade">Quantidade</label>
+                                                        <input class="form-control" type="number" id="quantidade" name="quantidade" required oninput="validateNumberInput(this)">
+                                                        <script>
+                                                            function validateNumberInput(input) {
+                                                                // Remove any non-numeric characters
+                                                                input.value = input.value.replace(/[^0-9]/g, '');
+                                                            }
+                                                            </script>
+                                                    </div>
+
                                                     <div class="w-100">
                                                         <label for="categoria">Categoria&nbsp;<b><font color="red" for="cliente">*</font></b></label>
                                                         <select class="form-select" id="categoria" name="categoria" onchange="showAdditionalFields(this.value)" required>

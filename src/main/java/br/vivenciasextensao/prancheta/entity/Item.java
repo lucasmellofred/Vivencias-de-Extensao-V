@@ -19,6 +19,7 @@ public class Item {
     private String categoria;
     private String descricao;
     private String infoAdicional;
+    private Integer quantidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "acaoSocial_id")
@@ -78,6 +79,14 @@ public class Item {
 
     public void setAcaoSocial(AcaoSocial acaoSocial) {
         this.acaoSocial = acaoSocial;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
     
 }

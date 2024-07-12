@@ -94,7 +94,7 @@ public class ItemController {
 
     @Transactional
     @PostMapping("/save")
-    public String saveItems(@ModelAttribute("acaoSocialId") Long acaoSocialId, @RequestParam(name = "nome", required = true) String nome, @RequestParam(name = "descricao", required = true) String descricao, @RequestParam(name = "codigoIdentificacao", required = true) String codigoIdentificacao, @RequestParam(name = "infoAdicional", required = true) String infoAdicional, @RequestParam(name = "categoria", required = true) String categoria, RedirectAttributes redirectAttributes) {
+    public String saveItems(@ModelAttribute("acaoSocialId") Long acaoSocialId, @RequestParam(name = "nome", required = true) String nome, @RequestParam(name = "descricao", required = true) String descricao, @RequestParam(name = "codigoIdentificacao", required = true) String codigoIdentificacao, @RequestParam(name = "infoAdicional", required = true) String infoAdicional, @RequestParam(name = "categoria", required = true) String categoria, @RequestParam(name = "quantidade", required = true) Integer quantidade, RedirectAttributes redirectAttributes) {
         // Primeiro, buscar a AcaoSocial pelo ID
         Optional<AcaoSocial> acaoSocialOptional = acaoSocialRepository.findById(acaoSocialId);
         
@@ -107,6 +107,7 @@ public class ItemController {
             item.setDescricao(descricao);
             item.setCodigoIdentificacao(codigoIdentificacao);
             item.setInfoAdicional(infoAdicional);
+            item.setQuantidade(quantidade);
             item.setCategoria(categoria);
             item.setAcaoSocial(acaoSocial);
             itemRepository.save(item);
@@ -138,6 +139,7 @@ public class ItemController {
         itemExistente.setDescricao(item.getDescricao());
         itemExistente.setCodigoIdentificacao(item.getCodigoIdentificacao());
         itemExistente.setInfoAdicional(item.getInfoAdicional());
+        itemExistente.setQuantidade(item.getQuantidade());
         itemExistente.setCategoria(item.getCategoria());
 
         AcaoSocial acaoSocial = acaoSocialRepository.findById(acaoSocialId).get();

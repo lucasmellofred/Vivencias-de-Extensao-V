@@ -14,4 +14,8 @@ public class ItemService {
 	public Item findById(Long id) {
 		return itemRepository.findById(id).orElse(null);
 	}
+
+	public Long countItemsByAcaoSocialId(Long acaoSocialId) {
+        return itemRepository.countByAcaoSocialId(acaoSocialId);
+    }
 }

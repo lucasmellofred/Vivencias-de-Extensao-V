@@ -72,6 +72,16 @@
             <div class="rounded-2">
                 <div class="d-flex flex-column flex-shrink-0">
                     <div class="">
+                        <style>
+                            .colunaAcaoSocialIdConteudo {
+                                text-align: center;
+                                align-content: center;
+                            }
+                            .colunaItemCountConteudo {
+                                text-align: center;
+                                align-content: center;
+                            }
+                        </style>
                         <table class="table table-bordered table-striped " id="minha-tabela2" style="width: 100%;">
                             <thead class="z-0 sticky-top" id="cabecalhoColunas">
                                 <tr>
@@ -81,6 +91,7 @@
                                     <th class="colunaLocal" data-col="local">Local</th>
                                     <th class="colunaDataInicial" data-col="data_inicial">Data de Início</th>
                                     <th class="colunaDataFinal" data-col="data_final">Data de Término</th>
+                                    <th class="colunaItemCount" data-col="itemCount">Quantidade de Itens</th>
                                 </tr>
                             </thead>
                             <tbody style="height: 200px !important; overflow-y: auto !important;">
@@ -122,11 +133,12 @@
                                             <!--<a class="btn btn-success" th:href="@{/acaoSocial/{acaoSocialId}/itens/cadastrar-item-acao-social/(acaoSocialId=${acaoSocial.id})}">Novo Item</a>-->
                                         </div>
                                     </td>
-                                    <td class="coluna" data-col="id" th:text="${acaoSocial.id}"></td>
+                                    <td class="coluna colunaAcaoSocialIdConteudo" data-col="id" th:text="${acaoSocial.id}"></td>
                                     <td class="coluna" data-col="nome" th:text="${acaoSocial.nome}"></td>
                                     <td class="coluna" data-col="local" th:text="${acaoSocial.local}"></td>
                                     <td class="coluna" data-col="data_inicial" th:text="${#dates.format(acaoSocial.data_inicial, 'dd/MM/yyyy')}"></td>
                                     <td class="coluna" data-col="data_final" th:text="${#dates.format(acaoSocial.data_final, 'dd/MM/yyyy')}"></td>
+                                    <td class="colunaItemCountConteudo" th:text="${countItensMap.get(acaoSocial.id)}" data-col="quantidadeItensCadastrados"></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -1,7 +1,11 @@
 package br.vivenciasextensao.prancheta.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,14 +16,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.vivenciasextensao.prancheta.entity.AcaoSocial;
+import br.vivenciasextensao.prancheta.projection.AcaoSocialProjection;
 import br.vivenciasextensao.prancheta.repository.AcaoSocialRepository;
+import br.vivenciasextensao.prancheta.service.AcaoSocialService;
+import br.vivenciasextensao.prancheta.service.ItemService;
 
 @Controller
 public class AcaoSocialController {
     @Autowired
     private AcaoSocialRepository acaoSocialRepository;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private AcaoSocialService acaoSocialService;
 
     @GetMapping
     public String index(Model model) {
@@ -28,12 +42,28 @@ public class AcaoSocialController {
         return "index";
     }
     
-    @GetMapping("/listar-todas-acoes-sociais")
+    /*@GetMapping("/listar-todas-acoes-sociais")
     public String acaoSocial(Model model) {
         List<AcaoSocial> acoesSociais = acaoSocialRepository.findAll();
         model.addAttribute("acoesSociais", acoesSociais);
         return "acoesSociais/todas-acoes-sociais";
+    }*/
+    @GetMapping("/listar-todas-acoes-sociais")
+    public String listarTodasAcoesSociais(Model model) {
+        List<AcaoSocial> acoesSociais = acaoSocialRepository.findAll();
+        
+
+        List<AcaoSocialProjection> countItensByAcaoSocial = acaoSocialService.countItensByAcaoSocial();
+        Map<Long, Long> countItensMap = countItensByAcaoSocial.stream()
+                .collect(Collectors.toMap(AcaoSocialProjection::getAcaoSocialId,
+                                          AcaoSocialProjection::getCountItens));
+        model.addAttribute("countItensMap", countItensMap);
+        model.addAttribute("acoesSociais", acoesSociais);
+
+        return "acoesSociais/todas-acoes-sociais";
     }
+
+   
 
     @GetMapping("/nova-acao-social")
     public String novaAcaoSocial() {
@@ -85,7 +115,7 @@ public class AcaoSocialController {
         return "acoesSociais/editar-acao-social";
     }
 
-    @PostMapping("/salvar-acao-social/{id}")
+    /*@PostMapping("/salvar-acao-social/{id}")
     public String salvarAcaoSocial(@PathVariable("id") Long id,
                                    @RequestParam(name = "nome", required = true) String nome,
                                    @RequestParam(name = "local", required = true) String local,
@@ -100,7 +130,25 @@ public class AcaoSocialController {
         acaoSocial.setData_final(data_final);
 
         acaoSocialRepository.save(acaoSocial);
-        return "redirect:/listar-todas-acoes-sociais";
+        return "redirect:/editar-acao-social/" + acaoSocial.getId();
+    }*/
+    @PostMapping("/salvar-acao-social/{id}")
+    public String salvarAcaoSocial(@PathVariable("id") Long id,
+                                   @RequestParam(name = "nome", required = true) String nome,
+                                   @RequestParam(name = "local", required = true) String local,
+                                   @RequestParam(name = "data_inicial", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_inicial,
+                                   @RequestParam(name = "data_final", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_final,
+                                   RedirectAttributes redirectAttributes) {
+        AcaoSocial acaoSocial = acaoSocialRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid AcaoSocial ID:" + id));
+
+        acaoSocial.setNome(nome);
+        acaoSocial.setLocal(local);
+        acaoSocial.setData_inicial(data_inicial);
+        acaoSocial.setData_final(data_final);
+
+        acaoSocialRepository.save(acaoSocial);
+        return "redirect:/editar-acao-social/" + acaoSocial.getId();
     }
 
     @PostMapping("/deletar-acao-social/{id}")

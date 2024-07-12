@@ -40,4 +40,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
     Map<Long, Long> countItensMap = countItensByItens.stream().collect(Colletores.toMap(ItensItemProjecton::getItemId,EventoItemProjection::getCountItens));
     model.addAtributo("countItensMap", countItensMap) */
 
+    Long countByAcaoSocialId(Long acaoSocialId);
 }

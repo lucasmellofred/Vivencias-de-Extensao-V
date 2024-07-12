@@ -52,7 +52,7 @@ public class UserInterceptor implements HandlerInterceptor {
 		return false;
 	}
 
-    @Override
+    /*@Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if (modelAndView != null) {
             String nomeUsuarioOuAdministrador = "Usuário não autenticado";
@@ -68,6 +68,21 @@ public class UserInterceptor implements HandlerInterceptor {
                 // Log para verificar o email do administrador
                 System.out.println("Email do administrador: " + emailAdministrador);
             }           
+        }
+    }*/
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (modelAndView != null && !modelAndView.getViewName().startsWith("redirect:")) {
+            String nomeUsuarioOuAdministrador = "Usuário não autenticado";
+            String emailAdministrador = "Administrador não autenticado";
+
+            if (administradoresService.isAdminAutenticado(request)) {
+                Administrador administrador = administradoresService.getAdministrador(request);
+                nomeUsuarioOuAdministrador = NameFormatter.formatName(administrador.getNome());
+                emailAdministrador = administrador.getEmail();
+                modelAndView.addObject("nomeUsuarioOuAdministrador", nomeUsuarioOuAdministrador);
+                modelAndView.addObject("emailAdministrador", emailAdministrador);
+            }
         }
     }
 
