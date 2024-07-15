@@ -8,3 +8,6 @@
 - Gabriel Batista da Rocha
 - Vitor Antonio Bonin Sebold
 - Jandir Martins Neto
+
+![Listar Administradores](listar-administradores.png)
+
